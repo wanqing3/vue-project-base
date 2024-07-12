@@ -1,9 +1,7 @@
 <template>
-    <div>
-        App
-    </div>
+    <router-view />
 </template>
-<style less="less">
+<style lang="less">
 #root {
     height: 100vh;
 }

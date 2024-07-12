@@ -1,0 +1,65 @@
+{
+    "compilerOptions": {
+        /* 基本选项 */
+        // 指定编译产出目标版本: es3、es5、es6/es2015、es2016、es2017、es2018、es2019、es2020、es2021、es2022、esnext
+        "target": "esnext",
+        // 指定使用模块: none、commonjs、amd、umd、system、es6/es2015、es2020、es2022、esnext、node16、nodenext
+        "module": "esnext",
+        "lib": ["dom", "esnext"],              // 指定要包含在编译中的库文件: 这里配置为 dom 与 es模块
+        "allowJs": false,                      // 允许编译 javascript 文件
+        "jsx": "preserve",                     // 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'       
+        "sourceMap": true,                     // 编译时生成相应的 '.map' 文件         
+        "removeComments": true,                // 删除编译后的所有的注释  
+        
+
+        /* 严格的类型检查选项 */
+        "strict": true,                        // 启用所有严格类型检查选项
+        "noImplicitAny": true,                 // 在表达式和声明上有隐含的 any类型时报错
+
+        
+        /* 额外的检查 */
+        "noUnusedLocals": true,                // 有未使用的变量时，抛出错误
+        "noUnusedParameters": true,            // 有未使用的参数时，抛出错误
+
+
+        /* 模块解析选项 */
+        "moduleResolution": "node",            // 选择模块解析策略： 'node' (Node.js) or 'classic' (TypeScript pre-1.6)
+        "baseUrl": "./",                       // 用于解析非相对模块名称的基目录（使用绝对路径时使用baseUrl去解析导入路径）
+        // 路径别名类型提示支持
+        "paths": {
+            "@/*": ["src/*"],
+            "#/*": ["types/*"]
+        },                                     // 模块名到基于 baseUrl 的路径映射的列表（为导入路径配置别名,支持路径提示）
+        "rootDirs": [],                        // 根文件夹列表，其组合内容表示项目运行时的结构内容（虚拟目录）
+        "types": [
+            "vite/client", 
+            // 指定element-plus全局组件类型
+            "element-plus/global"
+        ],                                     // 需要包含的类型声明文件名列表
+        "allowSyntheticDefaultImports": true,  // 允许从没有设置默认导出的模块中默认导入（允许使用 xxx 代替 * as xxx 导入）
+
+
+        /* 其他配置 */
+        "forceConsistentCasingInFileNames": true,   // 强制代码中使用的模块文件名必须和文件系统中的文件名保持大小写一致
+        "esModuleInterop": true,                    // 通过为导入内容创建命名空间，实现CommonJS和ES模块之间的互操作性
+        "resolveJsonModule": true,                  // 是否可以导入 json module
+        "experimentalDecorators": true,             // 是否启用实验性的装饰器特性
+        "skipLibCheck": true,                       // 启用阻止对下载库的类型检查
+    },
+    // 指定需要编译文件列表
+    "include": [
+        "src/**/*.ts",
+        "src/**/*.d.ts",
+        "src/**/*.tsx",
+        "src/**/*.vue",
+        "types/**/*.d.ts",
+        "types/**/*.ts",
+        "build/**/*.ts",
+        "build/**/*.d.ts",
+        "mock/**/*.ts",
+        "test/**/*.ts",
+        "vite.config.mts"
+    ],
+    // 指定不需要编译的文件
+    "exclude": ["node_modules", "dist", "**/*.js"]
+}
