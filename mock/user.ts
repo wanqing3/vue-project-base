@@ -49,7 +49,7 @@ export default [
         response: ({ body }: any) => {
             if (body.accessToken === 'dawei') {
                 return {
-                    code: 0,
+                    code: 1,
                     message: '登录成功',
                     data: {
                         username: 'dawei',
@@ -59,7 +59,7 @@ export default [
                 };
             } else if (body.accessToken === 'common') {
                 return {
-                    code: 0,
+                    code: 1,
                     message: '登录成功',
                     data: {
                         username: 'common',
@@ -69,7 +69,7 @@ export default [
                 };
             } else {
                 return {
-                    code: 1,
+                    code: 0,
                     message: 'Token失效',
                     data: {
                         username: '',
