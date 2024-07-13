@@ -1,4 +1,18 @@
 {
+    // 保存自动格式化代码
+    // "editor.formatOnSave": true,
+    // 开启保存自动修复
+    "editor.codeActionsOnSave": {
+        // 控制是否应在文件保存时运行自动修复操作。
+        "source.fixAll": "explicit",
+        // 控制是否应在文件保存时运行"整理 import 语句"操作。
+        "source.organizeImports": "explicit"
+    },
+    // 默认格式化插件
+    "editor.defaultFormatter": "Vue.volar",
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
     "cSpell.words": [
         "nprogress",
         "persistedstate",

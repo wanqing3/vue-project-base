@@ -4,7 +4,7 @@ export default [
         url: '/mock/api/login',
         method: 'post',
         // 获取请求体
-        response({ body }:any ) {
+        response({ body }: any) {
             // 简单编写一个逻辑
             // 用户名不等于密码就是密码错误
             if (body.username !== body.password) {
@@ -46,7 +46,7 @@ export default [
         // 获取用户信息的接口
         url: '/mock/api/getUserInfo',
         method: 'post',
-        response: ({ body }:any ) => {
+        response: ({ body }: any) => {
             if (body.accessToken === 'dawei') {
                 return {
                     code: 0,
@@ -79,5 +79,5 @@ export default [
                 };
             }
         }
-    },
+    }
 ] as MockMethod[];

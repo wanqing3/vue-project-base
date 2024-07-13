@@ -1,11 +1,6 @@
-import axios, {
-    AxiosError,
-    AxiosRequestConfig,
-    AxiosResponse,
-    InternalAxiosRequestConfig,
-} from "axios";
-import { getMessageInfo } from "./status";
-import { ElMessage } from "element-plus";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { ElMessage } from 'element-plus';
+import { getMessageInfo } from './status';
 
 /**
  * response.data响应数据结构
@@ -28,11 +23,11 @@ interface IExtendAxiosRequestConfig extends AxiosRequestConfig {
 const service = axios.create({
     // 环境变量中改变 axios 的 baseURL
     baseURL:
-        import.meta.env.VITE_APP_USE_MOCK === "true"
+        import.meta.env.VITE_APP_USE_MOCK === 'true'
             ? import.meta.env.VITE_APP_MOCK_BASEURL
             : import.meta.env.VITE_APP_API_BASEURL,
     // 请求超时时间(ms)
-    timeout: 1000 * 15,
+    timeout: 1000 * 15
 });
 
 /**
@@ -59,8 +54,8 @@ service.interceptors.response.use(
         }
         // http状态码 = 2xx
         ElMessage({
-            type: "error",
-            message: getMessageInfo(response.status),
+            type: 'error',
+            message: getMessageInfo(response.status)
         });
         return Promise.reject(new Error(`HTTP Error: ${response.status}`));
     },
@@ -69,14 +64,14 @@ service.interceptors.response.use(
         // 捕获约定错误信息，http状态码不在2xx的范围
         if (response) {
             ElMessage({
-                type: "error",
-                message: getMessageInfo(response.status),
+                type: 'error',
+                message: getMessageInfo(response.status)
             });
             return Promise.reject(response.data);
         }
         ElMessage({
-            type: "error",
-            message: "网络连接异常,请稍后再试!",
+            type: 'error',
+            message: '网络连接异常,请稍后再试!'
         });
         return Promise.reject(error);
     }
@@ -90,9 +85,7 @@ service.interceptors.response.use(
  * @param config
  * @returns
  */
-const requestInstance = <T = any>(
-    config: IExtendAxiosRequestConfig
-): Promise<BaseResponse<T>> => {
+const requestInstance = <T = any>(config: IExtendAxiosRequestConfig): Promise<BaseResponse<T>> => {
     const { showMessage = false, ...otherConfig } = config;
     return service
         .request<any, AxiosResponse<BaseResponse<T>>>({ ...otherConfig })
@@ -104,8 +97,8 @@ const requestInstance = <T = any>(
             if (res.code !== 1) {
                 const error = new Error(res.message);
                 ElMessage({
-                    type: "error",
-                    message: res.message,
+                    type: 'error',
+                    message: res.message
                 });
                 // 拒绝并返回错误数据
                 return Promise.reject(error);
@@ -114,8 +107,8 @@ const requestInstance = <T = any>(
             // 如果需要显示消息，则显示成功消息
             if (showMessage) {
                 ElMessage({
-                    type: "success",
-                    message: res.message,
+                    type: 'success',
+                    message: res.message
                 });
             }
 
@@ -124,7 +117,7 @@ const requestInstance = <T = any>(
         })
         .catch((error: any) => {
             // 添加更详细的错误信息或日志记录
-            console.error("Request failed:", error);
+            console.error('Request failed:', error);
             // TODO: 根据需要，可以进一步处理错误或将其转换为特定的错误对象
             return Promise.reject(error);
         });
@@ -143,7 +136,7 @@ export function get<T = any, U = any>(
     url: string,
     params?: U
 ): Promise<BaseResponse<T>> {
-    return requestInstance({ ...config, url, method: "GET", params });
+    return requestInstance({ ...config, url, method: 'GET', params });
 }
 
 /**
@@ -159,7 +152,7 @@ export function post<T = any, U = any>(
     url: string,
     data?: U
 ): Promise<BaseResponse<T>> {
-    return requestInstance({ ...config, url, method: "POST", data });
+    return requestInstance({ ...config, url, method: 'POST', data });
 }
 
 /**
@@ -175,7 +168,7 @@ export function put<T = any, U = any>(
     url: string,
     params?: U
 ): Promise<BaseResponse<T>> {
-    return requestInstance({ ...config, url, method: "PUT", params });
+    return requestInstance({ ...config, url, method: 'PUT', params });
 }
 
 /**
@@ -191,7 +184,7 @@ export function del<T = any, U = any>(
     url: string,
     data?: U
 ): Promise<BaseResponse<T>> {
-    return requestInstance({ ...config, url, method: "DELETE", data });
+    return requestInstance({ ...config, url, method: 'DELETE', data });
 }
 
 export default service;

@@ -1,8 +1,8 @@
-import { defineStore } from "pinia";
-import { userLogin } from "@/api/user";
-import type { ILoginRequest } from "@/api/user/types";
-import pinia from "@/store";
-import type { IUserState } from "./types";
+import { defineStore } from 'pinia';
+import { userLogin } from '@/api/user';
+import type { ILoginRequest } from '@/api/user/types';
+import pinia from '@/store';
+import type { IUserState } from './types';
 
 /**
  * 定义store
@@ -10,14 +10,14 @@ import type { IUserState } from "./types";
  */
 export const useUserStoreHook = defineStore(
     // 唯一ID
-    "userInfo",
+    'userInfo',
     {
         // 用户数据
         state: (): IUserState => {
             return {
-                username: "",
-                accessToken: "",
-                roles: [""],
+                username: '',
+                accessToken: '',
+                roles: ['']
             };
         },
         getters: {},
@@ -28,7 +28,7 @@ export const useUserStoreHook = defineStore(
              * @returns
              */
             storeUserLogin(data: ILoginRequest) {
-                return userLogin(data).then((res) => {
+                return userLogin(data).then(res => {
                     const data = res.data;
                     this.username = data.username;
                     this.accessToken = data.accessToken;
@@ -36,17 +36,17 @@ export const useUserStoreHook = defineStore(
                     return res;
                 });
                 // catch已经由返回拦截器统一处理
-            },
+            }
         },
         // 持久化配置 persist: true持久化所有store
         persist: {
             // 存储名称
-            key: "userInfo",
+            key: 'userInfo',
             // 存储方式
             storage: sessionStorage,
             // 用于指定 state 中 accessToken数据需要被持久化
-            paths: ["username", "accessToken", "roles"],
-        },
+            paths: ['username', 'accessToken', 'roles']
+        }
     }
 );
 

@@ -1,11 +1,4 @@
 <template>
-    <div>
-        home
-    </div>
+    <div>home</div>
 </template>
-<script setup>
-
-</script>
-<style lang="less">
-    
-</style>
+<script setup></script>
