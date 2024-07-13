@@ -9,7 +9,7 @@ export default [
             // 用户名不等于密码就是密码错误
             if (body.username !== body.password) {
                 return {
-                    code: 1,
+                    code: 0,
                     message: '用户名或密码错误',
                     data: {
                         username: '',
@@ -21,7 +21,7 @@ export default [
             // 其余的则显示登录成功
             if (body.username === 'admin') {
                 return {
-                    code: 0,
+                    code: 1,
                     message: '登录成功',
                     data: {
                         username: 'admin',
