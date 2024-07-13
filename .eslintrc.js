@@ -15,7 +15,9 @@ module.exports = {
          * eslint-config-prettier 的作用是关闭eslint中与prettier相互冲突的规则
          * eslint-plugin-prettier 赋予eslint用prettier格式化代码的能力
          */
-        'plugin:prettier/recommended'
+        'plugin:prettier/recommended',
+        // 处理eslint, 自动引入组件时，不提示eslint错误
+        './.eslintrc-auto-import.json'
     ],
     overrides: [],
     /* 

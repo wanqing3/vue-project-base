@@ -50,6 +50,7 @@ service.interceptors.response.use(
     (response: AxiosResponse) => {
         // http状态码 = 200
         if (response.status === 200) {
+            // 走二次拦截器then
             return response;
         }
         // http状态码 = 2xx
@@ -57,6 +58,7 @@ service.interceptors.response.use(
             type: 'error',
             message: getMessageInfo(response.status)
         });
+        // 走二次拦截器catch
         return Promise.reject(new Error(`HTTP Error: ${response.status}`));
     },
     (error: AxiosError) => {
@@ -73,15 +75,15 @@ service.interceptors.response.use(
             type: 'error',
             message: '网络连接异常,请稍后再试!'
         });
+        console.error('response failed:', error);
         return Promise.reject(error);
     }
 );
 
 /**
+ * 二次响应拦截:为响应数据进行定制化处理
  * BaseResponse 为 response.data 的类型
  * T 为 response.data.data 的类型
- * 此处相当于二次响应拦截
- * 为响应数据进行定制化处理
  * @param config
  * @returns
  */
@@ -100,7 +102,7 @@ const requestInstance = <T = any>(config: IExtendAxiosRequestConfig): Promise<Ba
                     type: 'error',
                     message: res.message
                 });
-                // 拒绝并返回错误数据
+                // 拒绝并返回错误数据,走下方catch
                 return Promise.reject(error);
             }
 
@@ -118,7 +120,7 @@ const requestInstance = <T = any>(config: IExtendAxiosRequestConfig): Promise<Ba
         .catch((error: any) => {
             // 添加更详细的错误信息或日志记录
             console.error('Request failed:', error);
-            // TODO: 根据需要，可以进一步处理错误或将其转换为特定的错误对象
+            // 根据需要，可以进一步处理错误或将其转换为特定的错误对象
             return Promise.reject(error);
         });
 };

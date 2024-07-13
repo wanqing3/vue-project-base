@@ -1,7 +1,7 @@
-import { defineStore } from 'pinia';
 import { userLogin } from '@/api/user';
 import type { ILoginRequest } from '@/api/user/types';
 import pinia from '@/store';
+import { defineStore } from 'pinia';
 import type { IUserState } from './types';
 
 /**
@@ -28,14 +28,18 @@ export const useUserStoreHook = defineStore(
              * @returns
              */
             storeUserLogin(data: ILoginRequest) {
-                return userLogin(data).then(res => {
-                    const data = res.data;
-                    this.username = data.username;
-                    this.accessToken = data.accessToken;
-                    this.roles = data.roles;
-                    return res;
-                });
-                // catch已经由返回拦截器统一处理
+                return userLogin(data)
+                    .then(res => {
+                        const data = res.data;
+                        this.username = data.username;
+                        this.accessToken = data.accessToken;
+                        this.roles = data.roles;
+                        return res;
+                    })
+                    .catch(error => {
+                        // 拦截器(一次或二次)错误返回，也可不处理，拦截器(一次或二次)中已做message提示
+                        console.error('api failed:', error);
+                    });
             }
         },
         // 持久化配置 persist: true持久化所有store

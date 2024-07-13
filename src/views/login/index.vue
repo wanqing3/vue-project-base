@@ -4,10 +4,19 @@
             <h1>企业中台管理系统</h1>
             <el-form :model="userInfo" :rules="rules" center class="login-info">
                 <el-form-item prop="username">
-                    <el-input v-model="userInfo.username" type="text" placeholder="请输入用户名" />
+                    <el-input v-model="userInfo.username" type="text" placeholder="请输入用户名">
+                        <!-- 配置图标按需引入后，行间prefix-icon属性引入icon不再支持，需要使用具名插槽方式插入,或者使用手动导入(import { User } from '@element-plus/icons-vue';) :prefix-icon="User" 手动绑定 -->
+                        <template #prefix>
+                            <i-ep-User />
+                        </template>
+                    </el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input v-model="userInfo.password" type="text" placeholder="请输入密码" />
+                    <el-input v-model="userInfo.password" type="text" placeholder="请输入密码">
+                        <template #prefix>
+                            <i-ep-lock />
+                        </template>
+                    </el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" style="width: 100%" @click="handleUserLogin">登录</el-button>
