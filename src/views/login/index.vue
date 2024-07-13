@@ -27,8 +27,8 @@
 </template>
 <script lang="ts" setup>
 import { useUserStoreHook } from '@/store/modules/user';
-import { reactive } from 'vue';
-import { useRouter } from 'vue-router';
+// import { reactive } from 'vue';
+// import { useRouter } from 'vue-router';
 
 /* 数据状态变量管理 ------------------------------------------------------------*/
 const userStore = useUserStoreHook(); // 模块store
